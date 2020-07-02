@@ -6,6 +6,7 @@ public class FileSplitter {
 		String fileName = args[0];
 		//Get the Split at number 
 		int splitAt = Integer.parseInt(args[1]);
+		//process file and create new files
 		FileSplitterProcess fileSplitterProcess = new FileSplitterProcess();
 		if (fileSplitterProcess.loadFile(fileName)) {
 			boolean success = fileSplitterProcess.processFiles(fileName, splitAt, false, false);
