@@ -28,30 +28,39 @@ public class FileSplitterProcess {
 
 	public boolean processFiles(String sourceFile, int splitAt, boolean headerAtStart, boolean putHeaderinAllFiles) {
 		int counter;
+		int fileCounter;
 		String firstLine = "";
 		FileWriter fileWriter = null;
 		try {
 			Scanner fileReader = new Scanner(mFile);
 			counter = 0;
+			fileCounter = 1;
 			while (fileReader.hasNextLine()) {
 				String data = fileReader.nextLine();
 
 				if (counter == 0) {
 					if (headerAtStart == true) {
 						firstLine = data.toString(); // get the first line to put it in next files
+						data = fileReader.nextLine();
 					}
 				}
+
 				// split the file
 				if (counter % splitAt == 0) {
 					if (fileWriter != null) {
 						fileWriter.close();
+						fileCounter++;
 					}
+
 					String fileExt = sourceFile.substring(sourceFile.indexOf('.'));
-					String targetFileName = 
-							sourceFile.substring(0, sourceFile.indexOf('.')) + "" + counter + fileExt;
+					String targetFileName = sourceFile.substring(0, sourceFile.indexOf('.')) + "" + fileCounter
+							+ fileExt;
+
 					fileWriter = new FileWriter(targetFileName);
-					if (counter > 0 && putHeaderinAllFiles == true) {
-						fileWriter.write(firstLine.toString());
+
+					if (putHeaderinAllFiles == true) {
+						fileWriter.write(firstLine);
+						fileWriter.write(System.lineSeparator());
 					}
 				}
 
@@ -63,6 +72,8 @@ public class FileSplitterProcess {
 			if (fileWriter != null) {
 				fileWriter.close();
 			}
+
+			return true;
 		} catch (
 
 		FileNotFoundException e) {

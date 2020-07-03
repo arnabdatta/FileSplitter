@@ -5,4 +5,6 @@ Usage:
 
 java FileSplitter test.txt 5
 
-Working on building an GUI
+UI is developed.
+
+[![INSERT YOUR GRAPHIC HERE](https://i.imgur.com/EcbzdLk.png)]()
